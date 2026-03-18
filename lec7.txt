@@ -1,0 +1,63 @@
+import numpy as np
+import pandas as pd
+
+print(pd.data_range("2026-01-01", periods=4, freq="ME"))
+
+print(pd.data_range("2026-01-01", periods=4, freq="MS"))
+
+print(pd.data_range("2026-01-01", periods=4, freq="QE"))
+
+print(pd.data_range("2026-01-01", periods=4, freq="QS"))
+
+print(pd.data_range("2026-01-01", periods=4, freq="W"))
+
+print(pd.data_range("2026-01-01", periods=4, freq="W-MON"))
+
+ind=pd.read_csv("./digital_python-25-26/data/index.csv", sep=';', parse_dates=["Date"])
+
+print(ind.head())
+
+print(type(ind))
+print(ind.dtypes)
+
+index=pd.DatetimeIndex(ind["Date"])
+
+ind.index=index
+ind=ind["Close"]
+print(ind.head())
+
+import matplotlib.pyplot as plt
+
+ind.plot()
+plt.show()
+
+df=pd.read_csv(
+"./digital_python-25-26/data/FremonBridge.csv", 
+index_col="Date", 
+parse_dates=True, 
+date_format="%m/%d/%Y %I:%M:%S %p"
+)
+print(df.head())
+print(df.dtypes)
+
+print(df.columns)
+df.columns=["Total","East","West"]
+print(df.head())
+
+print(df.describe())
+print(df.dropna(),describe())
+
+df.plot()
+plt.ylabel("Кол-во велосипедистов (в час)")
+plt.show()
+
+weekly=df.resample("W").sum()
+weekly.plot()
+plt.ylabel("Кол-во велосипедистов (по неделям)")
+plt.show()
+
+daily=df.resample("W").sum()
+daily.rolling
+daily.plot(style=["-",":","--"])
+plt.ylabel("Кол-во велосипедистов (по неделям)")
+plt.show()
