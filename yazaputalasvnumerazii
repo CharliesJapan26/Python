@@ -1,0 +1,17 @@
+import numpy as np
+import pandas as pd
+rng=np.random.default_rng(1)
+mi1=pd.MultiIndex.from_product([["A1","A2"],[2025,2026]],names=["property","year"])
+print(mi1)
+mi2=pd.MultiIndex.from_product([["B1","B2","B3"],["jan","feb"]],names=["shop","month"])
+print(mi2)
+rng=np.random.default_rng(1)
+data=rng.random((4,6))
+df=pd.DataFrame(data, index=mi1, columns=mi2)
+
+print(df)
+
+print(df["B2"])
+print(df["B2","feb"])
+#срезы
+print(df.iloc[1:,2:5])
