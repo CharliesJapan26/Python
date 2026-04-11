@@ -1,0 +1,70 @@
+import numpy as np
+import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+
+x=np.linspace(0,10,1000)
+# y=np.sin(x[:,np.newaxis]+np.pi*np.arange(0,2,0.5))
+# lines=plt.plot(x,y)
+# # fig, ax = plt.subplots()
+# # ax.plot(x, np.sin(x), "-k", label="Синус")
+# # ax.plot(x, np.cos(x), "--r", label="Косинус")
+# # ax.axis("equal")
+
+# # ax.legend(frameon=True, shadow=True, borderpad=1, loc="lower center", ncol=2)
+# plt.legend(lines[:3], ["первая", "вторая","третья","четвертая"])
+
+# plt.plot(x, y[:,0], label="первый")
+# plt.plot(x, y[:,1], label="второй")
+# plt.plot(x, y[:,2:])
+
+# energy=pd.read_csv("./dateutil/data_new copy.csv")
+
+# day=energy['Day']
+# Energy1=energy['Energy_Consumption']
+# T=energy['Temperature']
+
+# sorted_dates = sorted(day)
+# plt.scatter (Energy1,
+#             sorted_dates,
+#             c=np.log10(Energy1),
+#             s=T,
+#             alpha=0.5)
+# plt.colorbar()
+
+# plt.scatter([],[],s=100, color='k', alpha=0.5, label='100 Watt')
+# plt.scatter([],[],s=300, color='r', alpha=0.5, label='1000 Watt')
+# plt.scatter([],[],s=500, color='g', alpha=0.5, label='10000 Watt')
+# plt.legend(frameon=False,labelspacing=3,title='площадь')
+
+# plt.axis("equal")
+# fig,ax=plt.subplots()
+# lines=ax.plot(x[:,np.newaxis], np.sin(x[:,np.newaxis]-np.pi/2*np.arange(0,4)))
+# plt.axis("equal")
+# ax.legend(lines[:2],['line A','line B'], loc='lower right')
+
+# leg=mpl.legend.Legend(ax, lines[2:],['line C','line D'], loc='upper right')
+# ax.add_artist(leg)
+
+# #ax.legend(lines[2:],['line C','line D'], loc='upper right')
+# leg2=mpl.legend.Legend(ax, lines[2:],['line C','line D'], loc='upper left')
+# ax.add_artist(leg2)
+y=np.sin(x)*np.cos(x[:,np.newaxis])
+# plt.imshow(y, cmap='Set1')
+# plt.imshow(y, cmap='jet')
+#plt.colorbar()
+from sklearn.datasets import load_digits
+digits=load_digits(n_class=6)
+# fig, ax=plt.subplots(8, 8)
+# for i, ax_ in enumerate(ax.flat):
+#     ax_.imshow(digits.images[i],cmap="autumn")
+#     ax_.set(xticks=[],yticks=[])
+
+from sklearn.manifold import Isomap
+iso=Isomap(n_components=2, n_neighbors=10)
+prj=iso.fit_transform(digits.data)
+plt.scatter(prj[:, 0],prj[:, 1],c=digits.target, cmap=plt.cm.get_cmap("summer", 6))
+plt.colorbar(ticks=range(6))
+plt.clim(-0.5, 5.5)
+plt.show()
